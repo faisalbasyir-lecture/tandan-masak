@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2317392b'/%3E%3Cellipse cx='32' cy='36' rx='15' ry='19' fill='%23d2481a'/%3E%3Crect x='29' y='8' width='6' height='12' rx='2' fill='%235b5a2c'/%3E%3C/svg%3E">
+  <title>Tandan Masak · Lembar Marker Hiro</title>
+  <style>
+    body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; background: #f7f1e3; color: #1f2a24; }
+    .wrap { max-width: 760px; margin: 0 auto; padding: 20px 16px 40px; }
+    h1 { color: #17392b; font-size: 1.5rem; margin: 0 0 8px; }
+    .marker { background: #fff; border: 1px dashed #b9a77f; border-radius: 12px; padding: 24px; text-align: center; margin: 16px 0; }
+    .marker img { width: 8cm; max-width: 80vw; height: auto; image-rendering: pixelated; }
+    ol li { margin: 4px 0; }
+    .btn { display: inline-block; min-height: 44px; padding: 10px 18px; border-radius: 999px; background: #2f6b4a; color: #fff; border: 0; font-weight: 700; font-size: 1rem; cursor: pointer; text-decoration: none; }
+    .kecil { font-size: 0.85rem; color: #56635b; }
+    @media print { .no-print { display: none; } body { background: #fff; } .marker { border: 0; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Lembar marker AR: Hiro</h1>
+    <p>Marker ini dipakai oleh halaman <a href="ar-marker.html">AR marker</a> untuk menampilkan model tandan sawit di atas meja.</p>
+    <div class="marker">
+      <!-- Marker "Hiro" resmi dari repositori AR.js (versi 3.4.5), dimuat lewat jsDelivr. -->
+      <img src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js@3.4.5/data/images/hiro.png" alt="Marker Hiro: kotak hitam tebal dengan tulisan Hiro di tengah">
+      <p class="kecil">Cetak dengan lebar sekitar 8 cm. Jangan dipotong sampai ke garis hitam; sisakan pinggiran putih.</p>
+    </div>
+    <ol>
+      <li>Cetak halaman ini, atau tampilkan marker di layar laptop/ponsel lain dengan kecerahan penuh.</li>
+      <li>Buka halaman <a href="ar-marker.html">AR marker</a> di ponsel, lalu izinkan akses kamera.</li>
+      <li>Arahkan kamera ke marker dari jarak 20–40 cm dengan cahaya cukup. Model tandan muncul di atas marker.</li>
+      <li>Putar kertas marker untuk melihat sisi lain tandan. Ganti Tandan X, Y, Z dengan tombol di bawah layar.</li>
+    </ol>
+    <p class="no-print"><button class="btn" type="button" onclick="window.print()">Cetak marker</button>
+      <a class="btn" href="index.html#ar" style="background:#e7b12f;color:#2a1d05">Kembali ke modul</a></p>
+    <p class="kecil">Jika gambar marker tidak muncul (tidak ada internet), buka tautan berikut saat online lalu simpan gambarnya: https://cdn.jsdelivr.net/gh/AR-js-org/AR.js@3.4.5/data/images/hiro.png</p>
+  </div>
+</body>
+</html>

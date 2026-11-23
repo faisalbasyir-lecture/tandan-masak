@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Tandan Masak · Kriteria Matang Panen Sawit (VR, AR, GenAI)</title>
+  <meta name="description" content="Media pembelajaran interaktif VR, AR, dan GenAI untuk kriteria matang panen dan fraksi kematangan TBS kelapa sawit. Mata kuliah Budidaya dan Penanganan Pascapanen Kelapa Sawit, D3 Agroindustri Politala.">
+  <meta name="theme-color" content="#17392b">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2317392b'/%3E%3Cellipse cx='32' cy='36' rx='15' ry='19' fill='%23d2481a'/%3E%3Crect x='29' y='8' width='6' height='12' rx='2' fill='%235b5a2c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/style.css">
+  <!-- A-Frame 1.5.0 (versi dipin). Harus dimuat biasa (bukan defer) di <head> sebelum <a-scene>,
+       lalu komponen kebun didaftarkan sebelum adegan dibuat. -->
+  <script src="https://cdn.jsdelivr.net/npm/aframe@1.5.0/dist/aframe-v1.5.0.min.js"></script>
+  <script src="js/tbs-model.js"></script>
+  <script src="js/content.js"></script>
+  <script src="js/vr-components.js"></script>
+  <script defer src="js/app.js"></script>
+</head>
+<body>
+  <a class="skip" href="#main">Lewati ke konten</a>
+
+  <header class="topbar">
+    <div class="brand">
+      <svg class="logo" viewBox="0 0 64 64" aria-hidden="true">
+        <rect width="64" height="64" rx="14" fill="#0f2a1f"/>
+        <path d="M6 54 L14 46 L22 54 L30 46 L38 54 L46 46 L54 54 L62 46" fill="none" stroke="#e7b12f" stroke-width="3" stroke-dasharray="3 3"/>
+        <ellipse cx="32" cy="32" rx="13" ry="16" fill="#d2481a"/>
+        <circle cx="27" cy="26" r="3" fill="#ea7d22"/><circle cx="35" cy="24" r="3" fill="#b02a17"/>
+        <circle cx="31" cy="33" r="3" fill="#ea7d22"/><circle cx="38" cy="33" r="3" fill="#c13916"/>
+        <circle cx="26" cy="37" r="3" fill="#b02a17"/><circle cx="33" cy="41" r="3" fill="#ea7d22"/>
+        <rect x="29.5" y="8" width="5" height="10" rx="2" fill="#7d7a3a"/>
+      </svg>
+      <div class="brand-text">
+        <strong>Tandan Masak</strong>
+        <span>Kriteria matang panen &amp; fraksi TBS · VR · AR · GenAI</span>
+      </div>
+    </div>
+    <div class="top-actions">
+      <button type="button" class="btn ghost" id="btn-rujukan" title="Tabel fraksi, kriteria, dan aturan TPH">Kartu rujukan</button>
+      <button type="button" class="btn ghost" id="btn-suara" aria-pressed="true" title="Suara pemandu dan efek">Suara: aktif</button>
+      <button type="button" class="btn accent" id="btn-ai">Asisten GenAI</button>
+    </div>
+  </header>
+
+  <nav class="stepper" id="stepper" aria-label="Alur belajar"></nav>
+
+  <main id="main">
+    <section class="step" id="step-tujuan" data-step="tujuan" aria-labelledby="h-tujuan"></section>
+
+    <section class="step" id="step-vr" data-step="vr" aria-labelledby="h-vr">
+      <div id="vr-head"></div>
+      <div class="vr-wrap" id="vr-wrap">
+        <div class="vr-stage" id="vr-stage">
+          <a-scene embedded
+                   kebun-builder
+                   renderer="antialias: true; colorManagement: true; maxCanvasWidth: 1600; maxCanvasHeight: 1600"
+                   vr-mode-ui="enabled: true"
+                   loading-screen="enabled: false"
+                   cursor="rayOrigin: mouse; fuse: false"
+                   raycaster="objects: .clickable; far: 40"
+                   fog="type: exponential; color: #dfeadf; density: 0.028"
+                   background="color: #cfe3ee"
+                   device-orientation-permission-ui="enabled: true">
+            <a-entity light="type: hemisphere; color: #fff6e0; groundColor: #56653f; intensity: 0.95"></a-entity>
+            <a-entity light="type: directional; color: #fff1d6; intensity: 0.85" position="-4 10 6"></a-entity>
+            <a-entity id="rig" position="0 0 6.5">
+              <a-entity id="cam" camera="fov: 70" position="0 1.6 0"
+                        look-controls="pointerLockEnabled: false; magicWindowTrackingEnabled: true"
+                        wasd-controls="acceleration: 22">
+                <a-entity id="gaze" visible="false" position="0 0 -1"
+                          geometry="primitive: ring; radiusInner: 0.012; radiusOuter: 0.02"
+                          material="color: #ffffff; shader: flat; opacity: 0.9; transparent: true"
+                          animation__fusing="property: scale; startEvents: fusing; easing: easeInCubic; dur: 1400; from: 1 1 1; to: 0.2 0.2 0.2"
+                          animation__leave="property: scale; startEvents: mouseleave; dur: 200; to: 1 1 1"></a-entity>
+              </a-entity>
+            </a-entity>
+          </a-scene>
+          <div class="vr-hud" aria-hidden="false">
+            <span class="chip" id="hud-tandan">Tandan 0/7</span>
+            <span class="chip" id="hud-tph">TPH 0/4</span>
+            <button type="button" class="chip btn-chip" id="btn-layar">Layar penuh</button>
+          </div>
+          <div class="vr-fallback" id="vr-fallback" hidden>
+            <p><strong>Adegan VR belum bisa dimuat.</strong> Pustaka A-Frame diambil dari internet (CDN jsDelivr). Periksa koneksi, lalu muat ulang halaman. Langkah lain tetap bisa dikerjakan.</p>
+          </div>
+        </div>
+        <aside class="vr-side" id="vr-side" aria-live="polite"></aside>
+      </div>
+      <div id="vr-foot"></div>
+    </section>
+
+    <section class="step" id="step-ar" data-step="ar" aria-labelledby="h-ar"></section>
+    <section class="step" id="step-kuis" data-step="kuis" aria-labelledby="h-kuis"></section>
+    <section class="step" id="step-kasus" data-step="kasus" aria-labelledby="h-kasus"></section>
+    <section class="step" id="step-refleksi" data-step="refleksi" aria-labelledby="h-refleksi"></section>
+    <section class="step" id="step-ringkasan" data-step="ringkasan" aria-labelledby="h-ringkasan"></section>
+  </main>
+
+  <aside class="drawer" id="ai-drawer" hidden aria-labelledby="h-ai-drawer">
+    <div class="drawer-head">
+      <h2 id="h-ai-drawer">Asisten GenAI</h2>
+      <button type="button" class="btn ghost small" id="ai-close">Tutup</button>
+    </div>
+    <div class="drawer-body" id="ai-drawer-body"></div>
+  </aside>
+
+  <div class="modal" id="modal-rujukan" hidden role="dialog" aria-modal="true" aria-labelledby="h-rujukan">
+    <div class="modal-card">
+      <div class="modal-head">
+        <h2 id="h-rujukan">Kartu rujukan</h2>
+        <button type="button" class="btn ghost small" data-close>Tutup</button>
+      </div>
+      <div class="modal-body" id="rujukan-body"></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <footer class="footer">
+    <p>Prototipe mini project PEKERTI · Mata kuliah Budidaya dan Penanganan Pascapanen Kelapa Sawit (BIK231209) · D3 Agroindustri, Politeknik Negeri Tanah Laut. Konten mengacu materi kuliah <em>Manajemen Panen Kelapa Sawit</em>. Tokoh, kebun, dan kasus bersifat fiktif.</p>
+  </footer>
+</body>
+</html>
